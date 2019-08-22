@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements ICategoryService {
         pageBean.setCurrentPage(currentPage);
 
         //每页显示的数据
-        int pageSize=5;
+        int pageSize=15;
         pageBean.setSize(pageSize);
 
         //封装总记录数

@@ -1,6 +1,23 @@
 <html>
 <#include "common/header.ftl">
-
+<head>
+    <style type="text/css">
+        table{
+            table-layout: fixed;/*只有定义表格的算法为fixed,th才有效果*/
+            border-collapse: collapse;/*边框合并模式*/
+        }
+        table tr th{
+            overflow:hidden;/*超出的文字隐藏*/
+            text-overflow:ellipsis;/*文字超出后,显示省略号*/
+            white-space:nowrap;/*文字不换行*/
+            word-break:keep-all;/*文字不换行*/
+        }
+        table tr td{
+            overflow:hidden;/*超出的文字隐藏*/
+            text-overflow:ellipsis;/*文字超出后,显示省略号*/
+        }
+    </style>
+</head>
 <body>
 <div id="wrapper" class="toggled">
 
@@ -31,7 +48,7 @@
                             <th>是否轮播</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
-                            <th colspan="2">操作</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,7 +70,7 @@
                                 <td width="100">${product.subtitle}</td>
                             <#--<td>${product.mainImage}</td>-->
                                 <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
-                                <td width="100">${product.subImages}</td>
+                                <td>${product.subImages}</td>
                                <#-- <td width="200">${product.detail}</td>-->
                                 <td width="100">${product.price}</td>
                                 <td width="100">${product.stock}</td>
@@ -94,8 +111,8 @@
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td width="50"><a href="/user/product/productupdate/${product.id}">修改</a>
-                                    <a href="productdown/${product.id}" >下架</a>
+                                <td><a href="/user/product/productupdate/${product.id}">修改</a>
+                                <a href="productdown/${product.id}" >下架</a>
                                 </td>
                             </tr>
                         </#if>
@@ -197,7 +214,7 @@
                                 <td width="100">${product.subtitle}</td>
                             <#--<td>${product.mainImage}</td>-->
                                 <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
-                                <td width="100">${product.subImages}</td>
+                                <td>${product.subImages}</td>
                                <#-- <td width="200">${product.detail}</td>-->
                                 <td width="100">${product.price}</td>
                                 <td width="100">${product.stock}</td>
@@ -239,10 +256,9 @@
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td width="50"><a href="/user/product/productupdate/${product.id}">修改</a>
+                                <td colspan="2"><a href="/user/product/productupdate/${product.id}">修改</a>
                                     <a href="productup/${product.id}" >上架</a>
-                                    <a href="productdelete/${product.id}" >删除</a>
-                                </td>
+                                <a href="productdelete/${product.id}" >删除</a></td>
                             </tr>
                         </#if>
                         </#list>
