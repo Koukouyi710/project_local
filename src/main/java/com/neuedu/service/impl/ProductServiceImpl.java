@@ -71,7 +71,7 @@ public class ProductServiceImpl implements IProductService{
         pageBean.setCurrentPage(currentPage);
 
         //每页显示的数据
-        int pageSize=2;
+        int pageSize=10;
         pageBean.setSize(pageSize);
 
         //封装总记录数
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements IProductService{
         pageBean.setCurrentPage(currentPage);
 
         //每页显示的数据
-        int pageSize=1;
+        int pageSize=10;
         pageBean.setSize(pageSize);
 
         //封装总记录数

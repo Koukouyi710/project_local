@@ -1,6 +1,7 @@
 package com.neuedu.service;
 
 import com.neuedu.exception.MyException;
+import com.neuedu.pojo.Page;
 import com.neuedu.pojo.UserInfo;
 
 import java.util.List;
@@ -28,4 +29,11 @@ public interface IUserService {
      * 根据id查询信息
      * */
     public UserInfo findUserById(int userId);
+
+    //用户数量
+    int selectCount();
+
+    //分页
+    Page<UserInfo> findByPage(int currentPage);
+
 }

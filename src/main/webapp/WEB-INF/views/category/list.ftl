@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list categorylist as category>
+                        <#list pagelist.getList() as category>
                         <#assign checkparentId="${category.parentId}"/>
                         <tr>
                             <td>${category.id}</td>
@@ -55,6 +55,30 @@
                         </#list>
                         </tbody>
                     </table>
+                <#--分页-->
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">
+                    <#if pagelist.getCurrentPage() lte 1>
+                        <li class="disabled"><a href="#">上一页</a></li>
+                    <#else>
+                        <li><a href="/user/category/find?currentPage=${pagelist.getCurrentPage() - 1}">上一页</a></li>
+                    </#if>
+
+                    <#list 1..pagelist.getTotalPages() as index>
+                        <#if pagelist.getCurrentPage() == index>
+                            <li class="disabled"><a href="#">${index}</a></li>
+                        <#else>
+                            <li><a href="/user/category/find?currentPage=${index}">${index}</a></li>
+                        </#if>
+                    </#list>
+
+                    <#if pagelist.getCurrentPage() gte pagelist.getTotalPages()>
+                        <li class="disabled"><a href="#">下一页</a></li>
+                    <#else>
+                        <li><a href="/user/category/find?currentPage=${pagelist.getCurrentPage() + 1}">下一页</a></li>
+                    </#if>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

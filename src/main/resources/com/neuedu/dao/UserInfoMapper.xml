@@ -120,4 +120,19 @@
 
   </select>
 
+  <!--查询所有数据数量 -->
+  <select id="selectCount" resultType="int">
+    select count(*) from neuedu_user
+  </select>
+
+  <!-- 根据分页数据start 和size查询数据 -->
+  <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
+    select
+    id, username, password, email, phone, question, answer, role, create_time,
+    update_time
+    from neuedu_user
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
 </mapper>

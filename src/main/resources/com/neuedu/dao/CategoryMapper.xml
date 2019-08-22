@@ -78,7 +78,7 @@
   </select>
 
   <!--查询所有数据数量 -->
-  <select id="selectCountup" resultType="int">
+  <select id="selectCount" resultType="int">
     select count(*) from neuedu_category
   </select>
 

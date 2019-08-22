@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -66,11 +67,13 @@ public class UserController {
     }
 
     @RequestMapping("finduser")
-    public  String  findAll(HttpSession session){
+    public  String  findAll(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, HttpSession session){
 
         List<UserInfo> userlist=userService.findAll();
 
         session.setAttribute("userlist",userlist);
+        session.setAttribute("pagelist", userService.findByPage(currentPage));
+
         return "users/list";
         //return "userlist";
     }

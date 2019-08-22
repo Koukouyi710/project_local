@@ -1,5 +1,8 @@
 git add .
+
 git commit -m "ÃèÊöÎÄ×Ö"
+
 git remote rm origin
-git remote add origin https://github.com/Koukouyi710/project.git
+
+git remote add origin https://github.com/Koukouyi710/project_local.git
 git push -u origin master

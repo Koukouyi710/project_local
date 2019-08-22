@@ -26,11 +26,14 @@ public class CategoryController {
     ICategoryService categoryService;
 
     @RequestMapping("find")
-    public  String  findAll(HttpSession session){
+    public  String  findAll(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,HttpSession session){
 
         List<Category> categoryList=categoryService.findAll();
 
         session.setAttribute("categorylist",categoryList);
+
+        session.setAttribute("pagelist", categoryService.findByPage(currentPage));
+
 
         return "category/list";
         //return "categorylist";

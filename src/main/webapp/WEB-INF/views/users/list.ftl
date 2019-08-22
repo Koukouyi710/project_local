@@ -29,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list userlist as user>
+                        <#list pagelist.getList() as user>
                         <#assign checkrole="${user.role}"/>
                         <tr>
                             <td>${user.id}</td>
@@ -56,6 +56,30 @@
                         </#list>
                         </tbody>
                     </table>
+                <#--分页-->
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">
+                    <#if pagelist.getCurrentPage() lte 1>
+                        <li class="disabled"><a href="#">上一页</a></li>
+                    <#else>
+                        <li><a href="/project/user/finduser?currentPage=${pagelist.getCurrentPage() - 1}">上一页</a></li>
+                    </#if>
+
+                    <#list 1..pagelist.getTotalPages() as index>
+                        <#if pagelist.getCurrentPage() == index>
+                            <li class="disabled"><a href="#">${index}</a></li>
+                        <#else>
+                            <li><a href="/project/user/finduser?currentPage=${index}">${index}</a></li>
+                        </#if>
+                    </#list>
+
+                    <#if pagelist.getCurrentPage() gte pagelist.getTotalPages()>
+                        <li class="disabled"><a href="#">下一页</a></li>
+                    <#else>
+                        <li><a href="/project/user/finduser?currentPage=${pagelist.getCurrentPage() + 1}">下一页</a></li>
+                    </#if>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
