@@ -59,23 +59,74 @@
 
                         <div class="form-group">
                             <label>商品状态</label>
-                            <#assign checkrole="${product.status}"/>
+                            <#assign checkstatus="${product.status}"/>
                             <select name="status" class="form-control">
                                 <option value="1"
-                                <#if checkrole==1>
+                                <#if checkstatus==1>
                                             selected
                                 </#if>
                                 >1-在售</option>
                                 <option value="2"
-                                <#if checkrole==2>
+                                <#if checkstatus==2>
                                             selected
                                 </#if>
                                 >2-下架</option>
                                 <option value="3"
-                                <#if checkrole==3>
+                                <#if checkstatus==3>
                                             selected
                                 </#if>
                                 >3-删除</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>是否新品</label>
+                            <#assign checkisNew="${product.isNew}"/>
+                            <select name="isNew" class="form-control">
+                                <option value="1"
+                                <#if checkisNew==1>
+                                            selected
+                                </#if>
+                                >是</option>
+                                <option value="0"
+                                <#if checkisNew==0>
+                                            selected
+                                </#if>
+                                >否</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>是否热门</label>
+                            <#assign checkisHot="${product.isHot}"/>
+                            <select name="isHot" class="form-control">
+                                <option value="1"
+                                <#if checkisHot==1>
+                                            selected
+                                </#if>
+                                >是</option>
+                                <option value="0"
+                                <#if checkisHot==0>
+                                            selected
+                                </#if>
+                                >否</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>是否轮播</label>
+                            <#assign checkisBanner="${product.isBanner}"/>
+                            <select name="isBanner" class="form-control">
+                                <option value="1"
+                                <#if checkisBanner==1>
+                                            selected
+                                </#if>
+                                >是</option>
+                                <option value="0"
+                                <#if checkisBanner==0>
+                                            selected
+                                </#if>
+                                >否</option>
                             </select>
                         </div>
 

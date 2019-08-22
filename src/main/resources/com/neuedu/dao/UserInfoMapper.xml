@@ -76,7 +76,7 @@
         answer = #{user.answer,jdbcType=VARCHAR},
       </if>
 
-      <if test="user.role!=null and user.role!=''">
+      <if test="user.role!=null">
         role = #{user.role,jdbcType=INTEGER},
       </if>
 

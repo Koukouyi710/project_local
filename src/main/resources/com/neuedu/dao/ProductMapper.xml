@@ -92,13 +92,13 @@
         sub_images = #{product.subImages,jdbcType=LONGVARCHAR},
       </if>
 
-      <if test="product.isNew!=null and product.isNew!=''">
+      <if test="product.isNew!=null">
         is_new = #{product.isNew,jdbcType=INTEGER},
       </if>
-      <if test="product.isHot!=null and product.isHot!=''">
+      <if test="product.isHot!=null">
         is_hot = #{product.isHot,jdbcType=INTEGER},
       </if>
-      <if test="product.isBanner!=null and product.isBanner!=''">
+      <if test="product.isBanner!=null">
         is_banner = #{product.isBanner,jdbcType=INTEGER},
       </if>
       update_time = now(),
