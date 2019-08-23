@@ -1,5 +1,6 @@
 package com.neuedu.service;
 
+import com.neuedu.consts.ServerResponse;
 import com.neuedu.exception.MyException;
 import com.neuedu.pojo.Category;
 import com.neuedu.pojo.Page;
@@ -32,6 +33,11 @@ public interface ICategoryService {
      * */
 
     public Category findCategoryById(int categoryId);
+
+    /**
+     * 获取当前分类id及递归子节点categoryId
+     */
+    public ServerResponse get_deep_category(Integer categoryId);
 
     int selectCount();
     Page<Category> findByPage(int currentPage);

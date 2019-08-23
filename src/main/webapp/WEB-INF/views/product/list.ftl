@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <#include "common/header.ftl">
 <head>
     <style type="text/css">
@@ -29,6 +29,22 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
+
+                    <div class="container-fluid">
+                        <div class="row clearfix">
+                            <div class="col-md-12 column">
+                                <form role="form" action="search" method="post">
+                                    <div class="form-group" style="width: 100%">
+                                        <input type="submit" class="btn btn-default" value="搜索" style="float: right">
+                                        <input type="text" placeholder="请输入要搜索的商品的关键字" name="keyword" class="form-control" style="width: 50%;float: right">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    </br>
                     <label>在架商品</label>
                     <table class="table table-bordered table-condensed">
                         <thead>

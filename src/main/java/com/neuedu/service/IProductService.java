@@ -1,5 +1,6 @@
 package com.neuedu.service;
 
+import com.neuedu.consts.ServerResponse;
 import com.neuedu.exception.MyException;
 import com.neuedu.pojo.Page;
 import com.neuedu.pojo.Product;
@@ -32,6 +33,12 @@ public interface IProductService {
      * */
 
     public Product findProductById(int productId);
+
+    /**
+     *商品列表
+     */
+    public ServerResponse search(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy);
+
 
     //上架商品数量
     int selectCountup();
