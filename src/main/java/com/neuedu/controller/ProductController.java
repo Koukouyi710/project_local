@@ -211,7 +211,7 @@ public class ProductController {
             //添加成功
             return "redirect:/user/product/findproduct";
         }
-        return "product/index";
+        return "product/list";
         //return "productadd";
     }
 

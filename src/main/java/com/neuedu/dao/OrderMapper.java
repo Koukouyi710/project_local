@@ -4,6 +4,7 @@ import com.neuedu.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -82,4 +83,10 @@ public interface OrderMapper {
      * 查询需要关闭的订单
      */
     List<Order> selectOrdersByCreateTime(@Param("time") String time);
+
+    //总共数量
+    int selectCount();
+
+    //分页
+    List<Order> findByPage(HashMap<String, Object> map);
 }

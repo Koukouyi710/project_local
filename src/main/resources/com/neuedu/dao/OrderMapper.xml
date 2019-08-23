@@ -200,4 +200,19 @@
     where id = #{order.id,jdbcType=INTEGER}
   </update>
 
+  <!--查询所有数据数量 -->
+  <select id="selectCount" resultType="int">
+    select count(*) from neuedu_order
+  </select>
+
+  <!-- 根据分页数据start 和size查询数据 -->
+  <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
+    select id, user_id, order_no, shipping_id, payment, payment_type, postage, status,
+    payment_time, send_time, end_time, close_time, create_time, update_time
+    from neuedu_order
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
 </mapper>
