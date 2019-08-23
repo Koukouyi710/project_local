@@ -4,6 +4,7 @@ import com.neuedu.consts.ServerResponse;
 import com.neuedu.exception.MyException;
 import com.neuedu.pojo.Order;
 import com.neuedu.pojo.Page;
+import com.neuedu.vo.OrderVO;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,5 @@ public interface IOrderService {
     /**
      *订单详情
      */
-    public ServerResponse detail(Integer userId,Long orderNo);
+    public OrderVO detail(Integer userId, Long orderNo);
 }

@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <label>在架商品</label>
+                    <a href="/user/product/findproduct"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
@@ -52,8 +52,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list productlist as product>
-                        <#if "${product.status}"==1>
+                        <#list SproductList.getList() as product>
                             <tr>
                                 <td width="80">${product.id}</td>
                             <#assign checkcategoryId="${product.categoryId}"/>
@@ -69,7 +68,7 @@
                                 <td width="100">${product.name}</td>
                                 <td width="100">${product.subtitle}</td>
                             <#--<td>${product.mainImage}</td>-->
-                                <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
+                                <td><img height="100" width="100" src="http://img.cdn.imbession.top/${product.mainImage}" alt=""></td>
                                 <td>${product.subImages}</td>
                             <#-- <td width="200">${product.detail}</td>-->
                                 <td width="100">${product.price}</td>
@@ -92,6 +91,9 @@
                             <#if checkisNew==0>
                                     <td width="50">否</td>
                             </#if>
+                                <#if checkisNew==null>
+                                    <td width="50"> </td>
+                                </#if>
 
                                 <#assign checkisHot="${product.isHot}"/>
                              <#if checkisHot==1>
@@ -100,6 +102,9 @@
                             <#if checkisHot==0>
                                     <td width="50">否</td>
                             </#if>
+                                <#if checkisHot==null>
+                                    <td width="50"> </td>
+                                </#if>
 
                                 <#assign checkisBanner="${product.isBanner}"/>
                              <#if checkisBanner==1>
@@ -108,6 +113,9 @@
                             <#if checkisBanner==0>
                                     <td width="50">否</td>
                             </#if>
+                                <#if checkisBanner==null>
+                                    <td width="50"> </td>
+                                </#if>
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
@@ -122,17 +130,16 @@
                                     <td>   <a href="productdelete/${product.id}" >删除</a></td>
                             </#if>
                             </tr>
-                        </#if>
                         </#list>
                         </tbody>
                     </table>
                 <#--分页-->
                     <div class="col-md-12 column">
                         <ul class="pagination pull-right">
-                    <#if uplist.getCurrentPage() lte 1>
+                    <#if SproductList.getCurrentPage() lte 1>
                         <li class="disabled"><a href="#">上一页</a></li>
                     <#else>
-                        <li><a href="/user/product/findproduct?currentPageup=${uplist.getCurrentPage() - 1}">上一页</a></li>
+                        <li><a href="/user/product/search?currentPage=${SproductList.getCurrentPage() - 1}">上一页</a></li>
                     </#if>
 
                         <#--<#list 1..uplist.getTotalPages() as index>
@@ -143,38 +150,38 @@
                             </#if>
                         </#list>-->
 
-                            <#if (uplist.getTotalPages() > 0)>
-                                <li <#if (uplist.getCurrentPage() == 1)>class="disabled"</#if>><a href="/user/product/findproduct?currentPageup=1">1</a></li>
+                            <#if (SproductList.getTotalPages() > 0)>
+                                <li <#if (SproductList.getCurrentPage() == 1)>class="disabled"</#if>><a href="/user/product/search?currentPage=1">1</a></li>
                             </#if>
 
                         <#--如果不只有一页-->
-                            <#if ((uplist.getTotalPages() > 1))>
+                            <#if ((SproductList.getTotalPages() > 1))>
                             <#--如果当前页往前查3页不是第2页-->
-                                <#if ((uplist.getCurrentPage() - 3) > 2)>
+                                <#if ((SproductList.getCurrentPage() - 3) > 2)>
                                     <li><span class="text">…</span></li>
                                 </#if>
 
                             <#--当前页的前3页和后3页-->
-                                <#list (uplist.getCurrentPage() - 3)..(uplist.getCurrentPage() + 3) as index>
+                                <#list (SproductList.getCurrentPage() - 3)..(SproductList.getCurrentPage() + 3) as index>
                                 <#--如果位于第一页和最后一页之间-->
-                                    <#if (index > 1) && (index < uplist.getTotalPages())>
-                                        <li <#if (uplist.getCurrentPage() == index)>class="disabled"</#if>><a href="/user/product/findproduct?currentPageup=${index}" >${index}</a></li>
+                                    <#if (index > 1) && (index < SproductList.getTotalPages())>
+                                        <li <#if (SproductList.getCurrentPage() == index)>class="disabled"</#if>><a href="/user/product/search?currentPage=${index}" >${index}</a></li>
                                     </#if>
                                 </#list>
 
                             <#--如果当前页往后查3页不是倒数第2页-->
-                                <#if (uplist.getCurrentPage() + 3) < (uplist.getTotalPages() - 1)>
+                                <#if (SproductList.getCurrentPage() + 3) < (SproductList.getTotalPages() - 1)>
                                     <li><span class="text">…</span></li>
                                 </#if>
 
                             <#--最后页&ndash;&gt;-->
-                                <li <#if (uplist.getCurrentPage() == uplist.getTotalPages())>class="disabled"</#if>><a href="/user/product/findproduct?currentPageup=${uplist.getTotalPages()}" >${uplist.getTotalPages()}</a></li>
+                                <li <#if (SproductList.getCurrentPage() == SproductList.getTotalPages())>class="disabled"</#if>><a href="/user/product/search?currentPage=${SproductList.getTotalPages()}" >${SproductList.getTotalPages()}</a></li>
                             </#if>
 
-                    <#if uplist.getCurrentPage() gte uplist.getTotalPages()>
+                    <#if SproductList.getCurrentPage() gte SproductList.getTotalPages()>
                         <li class="disabled"><a href="#">下一页</a></li>
                     <#else>
-                        <li><a href="/user/product/findproduct?currentPageup=${uplist.getCurrentPage() + 1}">下一页</a></li>
+                        <li><a href="/user/product/search?currentPage=${SproductList.getCurrentPage() + 1}">下一页</a></li>
                     </#if>
                         </ul>
                     </div>

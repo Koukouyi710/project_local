@@ -4,6 +4,7 @@ import com.neuedu.consts.ServerResponse;
 import com.neuedu.exception.MyException;
 import com.neuedu.pojo.Page;
 import com.neuedu.pojo.Product;
+import com.neuedu.vo.ProductListVO;
 
 
 import java.util.List;
@@ -37,7 +38,7 @@ public interface IProductService {
     /**
      *商品列表
      */
-    public ServerResponse search(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy);
+    public List<Product> search(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy);
 
 
     //上架商品数量
@@ -51,4 +52,7 @@ public interface IProductService {
 
     //分页
     Page<Product> findByPagedown(int currentPage);
+
+    //分页
+    Page<Product> findByPage(int currentPage,Integer categoryId,String keyword);
 }

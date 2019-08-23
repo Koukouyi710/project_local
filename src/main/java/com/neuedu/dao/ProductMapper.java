@@ -54,11 +54,22 @@ public interface ProductMapper {
     int selectCountup();
     //未上架商品数量
     int selectCountdown();
+
+
+    /*int selectCount(@Param("integerSet") Set<Integer> integerSet,
+                    @Param("keyword") String keyword);*/
+
+    int selectCount(@Param("categoryId") Integer categoryId,
+                    @Param("keyword") String keyword);
+
     //分页
     List<Product> findByPageup(HashMap<String, Object> map);
 
     //分页
     List<Product> findByPagedown(HashMap<String, Object> map);
+
+    //分页
+    List<Product> findByPage(HashMap<String, Object> map);
 
     /**
      * 按照productId/Name模糊查询

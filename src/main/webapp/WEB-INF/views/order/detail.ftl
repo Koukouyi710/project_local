@@ -1,117 +1,88 @@
 <html>
-<#include "/common/header.ftl">
-<body onload="_onload()">
-<div id="myDiv">
-<#include "/common/nav.ftl">
-</div>
+<#include "common/header.ftl">
 
-<table class="table table-bordered table-condensed">
-    <thead>
-    <tr>
-        <th>订单id</th>
-        <th>用户名</th>
-        <th>订单号</th>
-        <th>地址id</th>
-        <th>实际付款金额</th>
-        <th>支付类型</th>
-        <th>运费</th>
-        <th>订单状态</th>
-        <th>支付时间</th>
-        <th>发货时间</th>
-        <th>交易完成时间</th>
-        <th>交易关闭时间</th>
-        <th>创建时间</th>
-        <th>最后更新时间</th>
-        <th colspan="3">操作</th>
-    </tr>
-    </thead>
-    <tbody>
-                        <#list orderList.getList() as order>
+<body>
+<div id="wrapper" class="toggled">
+
+    <#--边栏sidebar-->
+    <#include "common/nav.ftl">
+
+
+    <#--主要内容content-->
+        <div id="page-content-wrapper">
+            <div class="container">
+                <div class="row clearfix">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>订单总金额</th>
+                                <th>支付方式</th>
+                                <th>订单状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td id="orderNo">${orderVO.orderNo}</td>
+                                <td id="payment">${orderVO.payment}</td>
+                                <td id="paymentType">${orderVO.paymentTypeDesc}</td>
+                                <td id="status">${orderVO.statusDesc}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <#--订单详情表数据-->
+                    <div class="col-md-12 column">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>商品id</th>
+                                <th>商品名称</th>
+                                <th>商品主图</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>总额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        <#list orderVO.orderItemVoList as orderDetail>
                         <tr>
-                            <td>${order.id}</td>
-                            <td width="100">${order.userId}
-                            <#list userlist as user>
-                                <#if order.userId==user.id>
-                                    <#if user.username!=null>
-                                        -${user.username}
-                                    </#if>
-                                </#if>
-                            </#list>
-                            </td>
-                            <td>${order.orderNo}</td>
-                            <td width="70">${order.shippingId}&nbsp<a href="shippingdetail/${order.shippingId}">详情</a></td>
-                            <td>${order.payment}</td>
-
-                            <#assign checkpaymentType="${order.paymentType}"/>
-                             <#if checkpaymentType==1>
-                                    <td width="120">${order.paymentType}-在线支付</td>
-                             </#if>
-
-                            <td>${order.postage}</td>
-
-                            <#assign checkstatus="${order.status}"/>
-                             <#if checkstatus==0>
-                                    <td width="120">${order.status}-订单取消</td>
-                             </#if>
-                            <#if checkstatus==10>
-                                    <td width="120">${order.status}-未付款</td>
-                            </#if>
-                            <#if checkstatus==20>
-                                    <td width="120">${order.status}-已付款</td>
-                            </#if>
-                            <#if checkstatus==40>
-                                    <td width="120">${order.status}-已发货</td>
-                            </#if>
-                            <#if checkstatus==50>
-                                    <td width="120">${order.status}-交易完成</td>
-                            </#if>
-                            <#if checkstatus==60>
-                                    <td width="120">${order.status}-交易关闭</td>
-                            </#if>
-
-                            <td width="200">${order.paymentTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="200">${order.sendTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="200">${order.endTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="200">${order.closeTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="200">${order.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="200">${order.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="50"><a href="detail/${order.id}">详情</a></td>
-                            <td width="50">
-                                <#if order.getStatus() == 10>
-                                    <a href="cancel/${order.id}">取消</a>
-                                </#if>
-                            </td>
-                            <td width="50">
-                                <#if order.getStatus() == 20>
-                                    <a href="send/${order.id}">发货</a>
-                                </#if>
-                            </td>
+                            <td id="productId">${orderDetail.productId}</td>
+                            <td id="productName">${orderDetail.productName}</td>
+                            <td id="productImage"><img src="http://img.cdn.imbession.top/${orderDetail.productImage}" width="150px"></td>
+                            <td id="currentUnitPrice">${orderDetail.currentUnitPrice}</td>
+                            <td id="quantity">${orderDetail.quantity}</td>
+                            <td id="totalPrice">${orderDetail.totalPrice}</td>
                         </tr>
                         </#list>
-    </tbody>
-</table>
-</body >
-<script>
-    function _onload() {
-        //请求订单列表接口
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {// code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {// code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("post","http://localhost:8080/user/order/test",true)
-        xmlhttp.send()
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {
-                document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-            }
-        }
-    }
-</script>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <#--操作-->
+                    <div class="col-md-12 column">
+                <#if orderVO.status == 20>
+                    <a href="/user/order/send/${order.id}" type="button" class="btn btn-default btn-primary">订单发货</a>
+                </#if>
+                    <#if orderVO.status == 10>
+                     <a href="" class="btn btn-info">修改地址</a>
+                    <a href="/user/order/cancel/${order.id}" type="button" class="btn btn-default btn-danger">取消订单</a>
+                        </#if>
+                        <a href="/user/order/findorder"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<#--播放音乐-->
+<audio id="notice" loop="loop">
+    <source src="/sell/mp3/song.mp3" type="audio/mpeg" />
+</audio>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
 </html>

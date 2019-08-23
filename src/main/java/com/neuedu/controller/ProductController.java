@@ -5,6 +5,7 @@ import com.neuedu.pojo.Category;
 import com.neuedu.pojo.Product;
 import com.neuedu.service.ICategoryService;
 import com.neuedu.service.IProductService;
+import com.neuedu.vo.ProductListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -234,14 +235,46 @@ public class ProductController {
     /**
      * 搜索商品
      */
-    @ResponseBody
-    @RequestMapping(value = "search")
-    public ServerResponse search(HttpSession session,
+  /*  @RequestMapping(value = "search")
+    public String search(HttpSession session,
                                @RequestParam(name = "categoryId",required = false) Integer categoryId,
                                @RequestParam(name = "keyword",required = false) String keyword,
                                @RequestParam(name = "pageNum",required = false,defaultValue = "1")Integer pageNum,
                                @RequestParam(name = "pageSize",required = false,defaultValue = "10")Integer pageSize,
                                @RequestParam(name ="orderBy",required = false,defaultValue = "")String orderBy){
-        return productService.search(categoryId,keyword,pageNum,pageSize,orderBy);
+        List<Product> productList = productService.search(categoryId,keyword,pageNum,pageSize,orderBy);
+        session.setAttribute("productList",productList);
+        return "product/search";
+    }*/
+    /**
+     * 搜索商品
+     */
+    @RequestMapping(value = "search")
+    public String search(HttpSession session,
+                         @RequestParam(name = "categoryId",required = false) Integer categoryId,
+                         @RequestParam(name = "keyword",required = false) String keyword,
+                         @RequestParam(value = "currentPage", defaultValue = "1") int currentPage){
+
+
+        if (currentPage!=1){
+            if (categoryId!=null){
+                session.setAttribute("categoryId", categoryId);
+            }
+            if (keyword!=null&&!keyword.equals("")){
+                session.setAttribute("keyword", keyword);
+            }
+        }else {
+            session.setAttribute("categoryId", categoryId);
+            session.setAttribute("keyword", keyword);
+        }
+
+        List<Category> categoryList = categoryService.findAll();
+        session.setAttribute("categorylist", categoryList);
+
+        categoryId = (Integer) session.getAttribute("categoryId");
+        keyword = (String) session.getAttribute("keyword");
+        session.setAttribute("SproductList", productService.findByPage(currentPage,categoryId,keyword));
+
+        return "product/search";
     }
 }

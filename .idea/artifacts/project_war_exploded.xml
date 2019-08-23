@@ -96,7 +96,7 @@
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:1.0" />
           <element id="library" level="project" name="Maven: joda-time:joda-time:2.3" />
           <element id="library" level="project" name="Maven: commons-net:commons-net:3.1" />
-          <element id="library" level="project" name="Maven: com.qiniu:qiniu-java-sdk:7.2.24" />
+          <element id="library" level="project" name="Maven: com.qiniu:qiniu-java-sdk:7.2.25" />
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.14.2" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.17.2" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />

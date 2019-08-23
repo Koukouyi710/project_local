@@ -218,4 +218,35 @@
       </if>
     </where>
   </select>
+
+  <!--查询未上架商品数据 -->
+  <select id="selectCount" resultType="int">
+    select count(*) from neuedu_product
+    <where>
+      <if test="categoryId!=null">
+        and category_id=#{categoryId}
+      </if>
+      <if test="keyword!=null and keyword!=''">
+        and name like #{keyword}
+      </if>
+    </where>
+  </select>
+
+  <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
+    select
+    id, category_id, name, subtitle, main_image, price, stock, status, is_new, is_hot, is_banner, create_time,
+    update_time, sub_images, detail
+    from neuedu_product
+    <where>
+      <if test="categoryId!=null">
+        and category_id=#{categoryId}
+      </if>
+      <if test="keyword!=null and keyword!=''">
+        and name like #{keyword}
+      </if>
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
 </mapper>

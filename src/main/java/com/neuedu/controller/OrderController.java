@@ -1,7 +1,5 @@
 package com.neuedu.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.neuedu.consts.Const;
 import com.neuedu.consts.ServerResponse;
 import com.neuedu.dao.OrderMapper;
 import com.neuedu.dao.ShippingMapper;
@@ -11,6 +9,7 @@ import com.neuedu.pojo.Shipping;
 import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.IOrderService;
 import com.neuedu.service.IUserService;
+import com.neuedu.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -85,7 +84,7 @@ public class OrderController {
         response.setCharacterEncoding("GBK");
         Order order = orderMapper.selectByPrimaryKey(id);
         if (order==null){
-            throw new MyException("error!","findorder");
+            throw new MyException("error!","/user/order/findorder");
         }
         int count = orderService.send_goods(null,order.getOrderNo());
 
@@ -98,36 +97,33 @@ public class OrderController {
     /**
      *地址详情
      */
-    @ResponseBody
     @RequestMapping("shippingdetail/{shippingId}")
-    public  ServerResponse  shippingdetail(@PathVariable("shippingId") Integer shippingId, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public  String  shippingdetail(@PathVariable("shippingId") Integer shippingId,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("GBK");
         Shipping shipping = shippingMapper.selectByPrimaryKey(shippingId);
         if (shipping==null){
-            throw new MyException("无地址详细信息!","order/findorder");
+            throw new MyException("无地址详细信息!","/user/order/findorder");
         }
-        return ServerResponse.createServerResponseBySucess(shipping);
+        session.setAttribute("shipping",shipping);
+        return "order/shippingdetail";
         //return "redirect:/user/order/findorder";
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public  String  totest(){
-
+    @RequestMapping(value = "detail/{id}")
+    public  String  totest(@PathVariable("id") Integer id,HttpSession session){
+        Order order = orderMapper.selectByPrimaryKey(id);
+        OrderVO orderVO = orderService.detail(null,order.getOrderNo());
+        session.setAttribute("order",order);
+        session.setAttribute("orderVO",orderVO);
         return "order/detail";
     }
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
-    @ResponseBody
-    public ServerResponse test(){
-        Order order = orderMapper.selectByPrimaryKey(4);
-        return orderService.detail(null,order.getOrderNo());
-    }
 
+   /* @RequestMapping(value = "/detail/{id}",method = RequestMethod.POST)
     @ResponseBody
-    @RequestMapping(value = "detail/{id}")
-    public ServerResponse detail(@PathVariable("id") Integer id){
+    public ServerResponse test(@PathVariable("id") Integer id){
         Order order = orderMapper.selectByPrimaryKey(id);
         return orderService.detail(null,order.getOrderNo());
-    }
+    }*/
 }

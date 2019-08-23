@@ -69,10 +69,10 @@ public class ProductServiceImpl implements IProductService{
     }
 
     @Override
-    public ServerResponse search(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy) {
+    public List<Product> search(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy) {
         //step1:参数校验 categoryid与keyword不能同时为空
         if (categoryId==null&&(keyword==null||keyword.equals(""))){
-            return ServerResponse.createServerResponseByFail("参数错误！");
+            throw new MyException("参数错误！","/user/product/findproduct");
         }
         //step2:categoryId
         Set<Integer> integerSet = Sets.newHashSet();
@@ -81,9 +81,9 @@ public class ProductServiceImpl implements IProductService{
             if (category==null&&(keyword==null||keyword.equals(""))){
                 //没有商品数据
                 PageHelper.startPage(pageNum,pageSize);
-                List<ProductListVO> productListVOList = Lists.newArrayList();
-                PageInfo pageInfo = new PageInfo(productListVOList);
-                return ServerResponse.createServerResponseBySucess(pageInfo);
+                List<Product> productList = Lists.newArrayList();
+                PageInfo pageInfo = new PageInfo(productList);
+                return productList;
             }
             ServerResponse serverResponse = categoryService.get_deep_category(categoryId);
             if (serverResponse.isSucess()){
@@ -105,15 +105,7 @@ public class ProductServiceImpl implements IProductService{
         }
         List<Product> productList = productMapper.searchProduct(integerSet,keyword);
         PageInfo pageInfo = new PageInfo(productList);
-        List<ProductListVO> productListVOList = Lists.newArrayList();
-        if (productList!=null&&productList.size()>0){
-            for (Product product:productList){
-                ProductListVO productListVO = assembleProductListVO(product);
-                productListVOList.add(productListVO);
-            }
-        }
-        pageInfo.setList(productListVOList);
-        return ServerResponse.createServerResponseBySucess(pageInfo);
+        return productList;
     }
 
     private ProductListVO assembleProductListVO(Product product){
@@ -197,6 +189,42 @@ public class ProductServiceImpl implements IProductService{
         List<Product> lists = productMapper.findByPagedown(map);
         pageBean.setList(lists);
 
+        return pageBean;
+    }
+
+    @Override
+    public Page<Product> findByPage(int currentPage, Integer categoryId, String keyword) {
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        Page<Product> pageBean = new Page<Product>();
+        //封装当前页数
+        pageBean.setCurrentPage(currentPage);
+
+        //每页显示的数据
+        int pageSize=10;
+        pageBean.setSize(pageSize);
+        if (keyword!=null&&!keyword.equals("")){
+            keyword="%"+keyword+"%";
+        }
+
+        //封装总记录数
+        //int totalCount = productMapper.selectCount(integerSet,keyword);
+        int totalCount = productMapper.selectCount(categoryId,keyword);
+        System.out.println("====totalCount="+totalCount);
+        pageBean.setTotalCount(totalCount);
+
+        //封装总页数
+        double tc = totalCount;
+        Double num =Math.ceil(tc/pageSize);//向上取整
+        pageBean.setTotalPages(num.intValue());
+
+        map.put("start",(currentPage-1)*pageSize);
+        map.put("size", pageBean.getSize());
+        map.put("categoryId", categoryId);
+        map.put("keyword", keyword);
+        //封装每页显示的数据
+        List<Product> lists = productMapper.findByPage(map);
+        pageBean.setList(lists);
+        System.out.println(pageBean.getTotalPages());
         return pageBean;
     }
 

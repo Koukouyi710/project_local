@@ -104,7 +104,7 @@ public class OrderServiceImpl implements IOrderService{
     public int cancel(Integer userId, Long orderNo) {
         Order order = orderMapper.findOrderListByUserIdAndOrderNO(userId,orderNo);
         if (order==null){
-            throw new MyException("未查询到订单信息！","/user/product/findorder");
+            throw new MyException("未查询到订单信息！","/user/order/findorder");
         }
         order.setStatus(Const.OrderStatusEunm.ORDER_CANCELED.getCode());
         return orderMapper.updateClose(order);
@@ -114,28 +114,28 @@ public class OrderServiceImpl implements IOrderService{
     public int send_goods(Integer userId, Long orderNo) {
         Order order = orderMapper.findOrderListByUserIdAndOrderNO(userId,orderNo);
         if (order==null){
-            throw new MyException("未查询到订单信息！","/user/product/findorder");
+            throw new MyException("未查询到订单信息！","/user/order/findorder");
         }
         order.setStatus(Const.OrderStatusEunm.ORDER_SEND.getCode());
         return orderMapper.updateSend(order);
     }
 
     @Override
-    public ServerResponse detail(Integer userId, Long orderNo) {
+    public OrderVO detail(Integer userId, Long orderNo) {
         if (orderNo==null||orderNo.equals("")){
-            return ServerResponse.createServerResponseByFail("查询的订单号不能为空！");
+            throw new MyException("查询的订单号不能为空！","/user/order/findorder");
         }
         Order order = orderMapper.findOrderListByUserIdAndOrderNO(userId,orderNo);
         if (order==null){
-            return ServerResponse.createServerResponseByFail("未查询到订单信息！");
+            throw new MyException("未查询到订单信息！","/user/order/findorder");
         }
         List<OrderItem>orderItemList = orderItemMapper.findOrderItemListByUserIdAndOrderNO(userId,orderNo);
         if (orderItemList==null||orderItemList.size()==0){
-            return ServerResponse.createServerResponseByFail("未查询到订单信息！");
+            throw new MyException("未查询到订单信息！","/user/order/findorder");
         }
         OrderVO orderVO = assembleOrderVO(order,orderItemList,order.getShippingId());
         //返回结果
-        return ServerResponse.createServerResponseBySucess(orderVO);
+        return orderVO;
     }
 
     private OrderVO assembleOrderVO(Order order,List<OrderItem> orderItemList,Integer shippingId){
