@@ -16,7 +16,7 @@
                         <thead>
                         <tr>
                             <th>订单id</th>
-                            <th>用户id</th>
+                            <th>用户名</th>
                             <th>订单号</th>
                             <th>地址id</th>
                             <th>实际付款金额</th>
@@ -33,13 +33,20 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         <#list orderList.getList() as order>
                         <tr>
                             <td>${order.id}</td>
-                            <td>${order.userId}</td>
+                            <td width="100">${order.userId}
+                            <#list userlist as user>
+                                <#if order.userId==user.id>
+                                    <#if user.username!=null>
+                                        -${user.username}
+                                    </#if>
+                                </#if>
+                            </#list>
+                            </td>
                             <td>${order.orderNo}</td>
-                            <td>${order.shippingId}</td>
+                            <td width="70">${order.shippingId}&nbsp<a href="shippingdetail/${order.shippingId}">详情</a></td>
                             <td>${order.payment}</td>
 
                             <#assign checkpaymentType="${order.paymentType}"/>
@@ -75,7 +82,7 @@
                             <td width="200">${order.closeTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td width="200">${order.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td width="200">${order.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td width="50"><a href="detail/id=${order.id}">详情</a></td>
+                            <td width="50"><a href="detail/${order.id}">详情</a></td>
                             <td width="50">
                                 <#if order.getStatus() == 10>
                                     <a href="cancel/${order.id}">取消</a>

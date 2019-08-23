@@ -40,4 +40,8 @@ public interface IOrderService {
     public int send_goods(Integer userId,Long orderNo);
 
 
+    /**
+     *订单详情
+     */
+    public ServerResponse detail(Integer userId,Long orderNo);
 }
