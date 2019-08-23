@@ -41,7 +41,7 @@ public class OrderController {
     /**
      *订单列表
      */
-    @RequestMapping("findorder")
+    @RequestMapping(value = "findorder",method = RequestMethod.GET)
     public  String  findorder(HttpSession session,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage){
 
         List<UserInfo> userlist=userService.findAll();
@@ -112,12 +112,21 @@ public class OrderController {
         //return "redirect:/user/order/findorder";
     }
 
-    /**
-     *订单详情
-     */
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public  String  totest(){
+
+        return "order/detail";
+    }
+    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse test(){
+        Order order = orderMapper.selectByPrimaryKey(4);
+        return orderService.detail(null,order.getOrderNo());
+    }
+
     @ResponseBody
     @RequestMapping(value = "detail/{id}")
-    public ServerResponse detail(@PathVariable("id") Integer id,HttpSession session,Long orderNo){
+    public ServerResponse detail(@PathVariable("id") Integer id){
         Order order = orderMapper.selectByPrimaryKey(id);
         return orderService.detail(null,order.getOrderNo());
     }

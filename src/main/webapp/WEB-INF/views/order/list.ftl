@@ -18,7 +18,7 @@
                             <th>订单id</th>
                             <th>用户名</th>
                             <th>订单号</th>
-                            <th>地址id</th>
+                            <th>地址</th>
                             <th>实际付款金额</th>
                             <th>支付类型</th>
                             <th>运费</th>
@@ -188,7 +188,7 @@
 <script>
     function _onload() {
         //请求订单列表接口
-        
+
     }
 </script>
 </body>

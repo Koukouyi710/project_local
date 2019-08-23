@@ -1,5 +1,5 @@
 <html>
-<body onload="_onload()">
+<body load="_onload()">
 <h2>Hello World!</h2>
 <div id="myDiv">
 
@@ -17,7 +17,7 @@
         {// code for IE6, IE5
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.open("post","http://localhost:8080/test",true)
+        xmlhttp.open("post","http://localhost:8080/order/findorder",true)
         xmlhttp.send()
         xmlhttp.onreadystatechange=function()
         {

@@ -127,7 +127,8 @@
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td><a href="/user/product/productupdate/${product.id}">修改</a>
+                                <td><a href="/user/product/detail/${product.id}">详情</a>
+                                    <a href="/user/product/productupdate/${product.id}">修改</a>
                                 <a href="productdown/${product.id}" >下架</a>
                                 </td>
                             </tr>
@@ -272,7 +273,8 @@
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td colspan="2"><a href="/user/product/productupdate/${product.id}">修改</a>
+                                <td colspan="2"><a href="/user/product/detail/${product.id}">详情</a>
+                                    <a href="/user/product/productupdate/${product.id}">修改</a>
                                     <a href="productup/${product.id}" >上架</a>
                                 <a href="productdelete/${product.id}" >删除</a></td>
                             </tr>
