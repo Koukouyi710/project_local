@@ -144,6 +144,7 @@
     update_time, sub_images, detail
     from neuedu_product
     where status = 1
+    ORDER BY create_time DESC
     <if test="start!=null and size!=null">
       limit #{start},#{size}
     </if>
@@ -156,6 +157,7 @@
     update_time, sub_images, detail
     from neuedu_product
     where status = 2
+    ORDER BY create_time DESC
     <if test="start!=null and size!=null">
       limit #{start},#{size}
     </if>
@@ -244,6 +246,7 @@
       <if test="keyword!=null and keyword!=''">
         and name like #{keyword}
       </if>
+      ORDER BY create_time DESC
     </where>
     <if test="start!=null and size!=null">
       limit #{start},#{size}

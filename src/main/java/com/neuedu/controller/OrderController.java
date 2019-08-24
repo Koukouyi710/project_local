@@ -10,6 +10,7 @@ import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.IOrderService;
 import com.neuedu.service.IUserService;
 import com.neuedu.vo.OrderVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -126,4 +127,14 @@ public class OrderController {
         Order order = orderMapper.selectByPrimaryKey(id);
         return orderService.detail(null,order.getOrderNo());
     }*/
+
+    @RequestMapping(value = "search")
+    public  String  search(@Param("orderNo") Long orderNo, HttpSession session){
+        Order order = orderMapper.findOrderListByUserIdAndOrderNO(null,orderNo);
+        if (order!=null) {
+            session.setAttribute("order",order);
+        }
+        System.out.println(order.getPaymentType());
+        return "order/search";
+    }
 }

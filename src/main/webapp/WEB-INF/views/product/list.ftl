@@ -35,7 +35,6 @@
                             <div class="col-md-12 column">
                                 <form role="form" action="search" method="post">
                                     <div class="form-group" style="width: 100%">
-                                        <label>类别</label>
                                         <input type="submit" class="btn btn-default" value="搜索" style="float: right">
                                         <input type="text" placeholder="请输入要搜索的商品的关键字" name="keyword" class="form-control" style="width: 50%;float: right">
                                         <select name="categoryId" class="form-control" style="width: 40%;float: right">
@@ -285,7 +284,8 @@
                             <#--<td>${product.status}</td>-->
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td colspan="2"><a href="/user/product/productdetail/${product.id}">详情</a><a href="/user/product/productupdate/${product.id}">修改</a>
+                                <td colspan="2"><a href="/user/product/productdetail/${product.id}">详情</a>
+                                    <a href="/user/product/productupdate/${product.id}">修改</a>
                                     <a href="productup/${product.id}" >上架</a>
                                 <a href="productdelete/${product.id}" >删除</a></td>
                             </tr>

@@ -120,12 +120,18 @@
                                 <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                              <#if checkstatus==1>
-                                    <td><a href="/user/product/productupdate/${product.id}">修改</a></td>
+                                    <td>
+                                        <a href="/user/product/productdetail/${product.id}">详情</a>
+                                        <a href="/user/product/productupdate/${product.id}">修改</a>
+                                    </td>
                                      <td><a href="productdown/${product.id}" >下架</a> </td>
 
                              </#if>
                             <#if checkstatus==2>
-                                   <td><a href="/user/product/productupdate/${product.id}">修改</a></td>
+                                  <td>
+                                      <a href="/user/product/productdetail/${product.id}">详情</a>
+                                      <a href="/user/product/productupdate/${product.id}">修改</a>
+                                  </td>
                                      <td>  <a href="productup/${product.id}" >上架</a></td>
                                     <td>   <a href="productdelete/${product.id}" >删除</a></td>
                             </#if>

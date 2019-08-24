@@ -277,4 +277,16 @@ public class ProductController {
 
         return "product/search";
     }
+    @RequestMapping(value = "productdetail/{id}")
+    public String productdetail(HttpSession session, @PathVariable("id") Integer productId, HttpServletRequest request) throws UnsupportedEncodingException {
+
+        Product product = productService.findProductById(productId);
+
+        if (product!=null) {
+            session.setAttribute("product",product);
+        }
+        return "product/detail";
+        //return "productadd";
+    }
+
 }

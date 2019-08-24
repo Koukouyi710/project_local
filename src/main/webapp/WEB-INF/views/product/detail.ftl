@@ -24,102 +24,16 @@
 <#--边栏sidebar-->
     <#include "common/nav.ftl">
 
+    <#--返回框-->
+    <div aria-label="返回顶部" style="width: 100px;height:100px;background-color: #ff730e;position: fixed"></div>
+
 <#--主要内容content-->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row clearfix">
+                <a href="/user/product/findproduct"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
                 <div class="col-md-12 column">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                        <tr>
-                            <th>商品Id</th>
-                            <th>类别Id</th>
-                            <th>商品名称</th>
-                            <th>商品副标题</th>
-                            <th>商品主图</th>
-                            <th>图片地址</th>
-                        <#--<th>商品详情</th>-->
-                            <th>价格</th>
-                            <th>库存数量</th>
-                            <th>商品状态</th>
-                            <th>是否新品</th>
-                            <th>是否热门</th>
-                            <th>是否轮播</th>
-                            <th>创建时间</th>
-                            <th>修改时间</th>
-                            <th colspan="2">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <#list downlist.getList() as product>
-                        <#if "${product.status}"==2>
-                            <tr>
-                                <td width="80">${product.id}</td>
-                            <#assign checkcategoryId="${product.categoryId}"/>
-                            <#if checkcategoryId==0>
-                                    <td width="100">${product.categoryId}-无父类</td>
-                            </#if>
-                            <#list categorylist as category>
-                                <#if checkcategoryId==category.id>
-                                    <td width="100">${product.categoryId}-${category.name}</td>
-                                </#if>
-                            </#list>
-                            <#--<td>${product.categoryId}</td>-->
-                                <td width="100">${product.name}</td>
-                                <td width="100">${product.subtitle}</td>
-                            <#--<td>${product.mainImage}</td>-->
-                                <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
-                                <td>${product.subImages}</td>
-                            <#-- <td width="200">${product.detail}</td>-->
-                                <td width="100">${product.price}</td>
-                                <td width="100">${product.stock}</td>
-                            <#assign checkstatus="${product.status}"/>
-                             <#if checkstatus==1>
-                                    <td width="120">${product.status}-在售</td>
-                             </#if>
-                            <#if checkstatus==2>
-                                    <td width="120">${product.status}-下架</td>
-                            </#if>
-                            <#if checkstatus==3>
-                                    <td width="120">${product.status}-删除</td>
-                            </#if>
-
-                                <#assign checkisNew="${product.isNew}"/>
-                             <#if checkisNew==1>
-                                    <td width="50">是</td>
-                             </#if>
-                            <#if checkisNew==0>
-                                    <td width="50">否</td>
-                            </#if>
-
-                                <#assign checkisHot="${product.isHot}"/>
-                             <#if checkisHot==1>
-                                    <td width="50">是</td>
-                             </#if>
-                            <#if checkisHot==0>
-                                    <td width="50">否</td>
-                            </#if>
-
-                                <#assign checkisBanner="${product.isBanner}"/>
-                             <#if checkisBanner==1>
-                                    <td width="50">是</td>
-                             </#if>
-                            <#if checkisBanner==0>
-                                    <td width="50">否</td>
-                            </#if>
-
-                            <#--<td>${product.status}</td>-->
-                                <td width="200">${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td width="200">${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td colspan="2"><a href="/user/product/detail/${product.id}">详情</a>
-                                    <a href="/user/product/productupdate/${product.id}">修改</a>
-                                    <a href="productup/${product.id}" >上架</a>
-                                    <a href="productdelete/${product.id}" >删除</a></td>
-                            </tr>
-                        </#if>
-                        </#list>
-                        </tbody>
-                    </table>
+                    <div>${product.detail}</div>
                 </div>
             </div>
         </div>
