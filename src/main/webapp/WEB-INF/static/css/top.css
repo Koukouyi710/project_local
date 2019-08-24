@@ -1,0 +1,36 @@
+html,body {
+	height:100%
+}
+html,body,form,input,span,p,img,ul,ol,li,dl,dt,dd {
+	margin:0;
+	padding:0;
+	border:0
+}
+ul,ol {
+	list-style:none
+}
+body {
+	background:#fff;
+	font:12px/1.5 arial,sans-serif;
+	text-align:center;
+}
+a {
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+
+#moquu_top{
+	z-index:2;
+	width:60px;
+	height:30px;
+	right:10px;
+	position:fixed;
+	cursor:pointer;
+	_position:absolute;
+	_bottom:auto;
+	_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)))
+}
+
+#topcontrol{background:#4c4c4c; height:60px; width:60px; border-radius:10px;}

@@ -10,8 +10,8 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row clearfix">
-                <a href="/user/order/findorder"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
                 <div class="col-md-12 column">
+                    <a href="/user/order/findorder"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
