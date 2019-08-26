@@ -32,6 +32,32 @@
             width:50px;
             height:50px;
         }
+
+        #bigbox{
+            display: flex;
+            width: 95%;
+            justify-content: space-around;
+            flex-wrap:wrap;
+            border: 1px solid black;
+            padding: 30px 70px;
+            margin: 100px 50px
+        }
+
+        #imgbox{
+            width: 610px;
+            height: 610px;
+            padding: 30px 30px
+        }
+
+        #back{color: grey}
+        #back:hover{color: darkgrey}
+
+        #new,#hot,#banner{
+            width: 50px;
+            float: left;
+            font-size: 16px;
+            margin: 0 6px;
+        }
     </style>
 
 </head>
@@ -45,7 +71,54 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <a href="/user/product/findproduct"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
+                    <a id="back" href="/user/product/findproduct"><span class="glyphicon glyphicon-chevron-left" style="float: left;position: fixed;font-size: 30px;margin-top: 40px">返回</span></a>
+                    <div id="bigbox">
+                        <div id="imgbox">
+                            <div><img height="540" width="540" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" src="http://img.cdn.imbession.top/${product.mainImage}" alt=""></div>
+                        </div>
+                        <div id="textbox" style="width: 800px;height: 600px;margin-top: 40px">
+                        <div id="title"><h1>${product.name}<h1></div>
+                        <#assign checkisHot="${product.isHot}"/>
+                        <#if checkisHot==1>
+                            <div id="hot"><span class="label label-danger">热门</span></div>
+                        </#if>
+                        <#assign checkisNew="${product.isNew}"/>
+                        <#if checkisNew==1>
+                            <div id="new"><span class="label label-info">新品</span></div>
+                        </#if>
+                        <#assign checkisBanner="${product.isBanner}"/>
+                        <#if checkisBanner==1>
+                            <div id="banner"><span class="label label-warning">轮播</span></div>
+                        </#if><br>
+                        <div id="subtitle">
+                            <h4>${product.subtitle}</h4>
+                        </div><br>
+                            <div style="display:flex;align-items: center;">
+                                <div>
+                                    <span style="color: darkgrey;font-size: 14px">价格</span>
+                                </div>
+                                <div>
+                                    <span style="color: red;font-weight: bold;font-size: 48px;position: relative;left: 30px">￥${product.price}</span>
+                                </div>
+                            </div>
+                            <br>
+                        <div style="display:flex;align-items: center;">
+                            <div>
+                                <span style="color: darkgrey;font-size: 14px">库存</span>
+                            </div>
+                            <div>
+                                <span style="color: darkgrey;font-weight: bold;font-size: 14px;position: relative;left: 30px">${product.stock}件</span>
+                            </div>
+                        </div><br><br>
+                        <#assign checkstatus="${product.status}"/>
+                        <#if checkstatus==1>
+                           <div id="up"><a href="/user/product/productdown/${product.id}"><button class="btn btn-danger" style="width: 100px;height: 40px;font-size: 18px">下架商品</button></a></div>
+                        </#if>
+                        <#if checkstatus==2>
+                            <div id="down"><a href="/user/product/productup/${product.id}"><button class="btn btn-primary">上架商品</button></a></div>
+                        </#if>
+                        </div>
+                    </div>
                     <div>${product.detail}</div>
                 </div>
             </div>

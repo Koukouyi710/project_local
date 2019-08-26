@@ -1,7 +1,7 @@
 <html>
 
 <#include  "common/header.ftl">
-<body>
+<body background="/static/img/bg.jpg" style="background-repeat:no-repeat;background-size:100% 100%;background-attachment: fixed;">
 <div id="wrapper" class="toggled">
 
 <#--边栏sidebar-->
