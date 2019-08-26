@@ -145,7 +145,7 @@
                     <#if SproductList.getCurrentPage() lte 1>
                         <li class="disabled"><a href="#">上一页</a></li>
                     <#else>
-                        <li><a href="/user/product/search?currentPage=${SproductList.getCurrentPage() - 1}">上一页</a></li>
+                        <li><a href="/user/product/search?categoryId=${categoryId}&&keyword=${keyword}&&currentPage=${SproductList.getCurrentPage() - 1}">上一页</a></li>
                     </#if>
 
                         <#--<#list 1..uplist.getTotalPages() as index>
@@ -157,7 +157,7 @@
                         </#list>-->
 
                             <#if (SproductList.getTotalPages() > 0)>
-                                <li <#if (SproductList.getCurrentPage() == 1)>class="disabled"</#if>><a href="/user/product/search?currentPage=1">1</a></li>
+                                <li <#if (SproductList.getCurrentPage() == 1)>class="disabled"</#if>><a href="/user/product/search?categoryId=${categoryId}&&keyword=${keyword}&&currentPage=1">1</a></li>
                             </#if>
 
                         <#--如果不只有一页-->
@@ -171,7 +171,7 @@
                                 <#list (SproductList.getCurrentPage() - 3)..(SproductList.getCurrentPage() + 3) as index>
                                 <#--如果位于第一页和最后一页之间-->
                                     <#if (index > 1) && (index < SproductList.getTotalPages())>
-                                        <li <#if (SproductList.getCurrentPage() == index)>class="disabled"</#if>><a href="/user/product/search?currentPage=${index}" >${index}</a></li>
+                                        <li <#if (SproductList.getCurrentPage() == index)>class="disabled"</#if>><a href="/user/product/search?categoryId=${categoryId}&&keyword=${keyword}&&currentPage=${index}" >${index}</a></li>
                                     </#if>
                                 </#list>
 
@@ -181,13 +181,13 @@
                                 </#if>
 
                             <#--最后页&ndash;&gt;-->
-                                <li <#if (SproductList.getCurrentPage() == SproductList.getTotalPages())>class="disabled"</#if>><a href="/user/product/search?currentPage=${SproductList.getTotalPages()}" >${SproductList.getTotalPages()}</a></li>
+                                <li <#if (SproductList.getCurrentPage() == SproductList.getTotalPages())>class="disabled"</#if>><a href="/user/product/search?categoryId=${categoryId}&&keyword=${keyword}&&currentPage=${SproductList.getTotalPages()}" >${SproductList.getTotalPages()}</a></li>
                             </#if>
 
                     <#if SproductList.getCurrentPage() gte SproductList.getTotalPages()>
                         <li class="disabled"><a href="#">下一页</a></li>
                     <#else>
-                        <li><a href="/user/product/search?currentPage=${SproductList.getCurrentPage() + 1}">下一页</a></li>
+                        <li><a href="/user/product/search?categoryId=${categoryId}&&keyword=${keyword}&&currentPage=${SproductList.getCurrentPage() + 1}">下一页</a></li>
                     </#if>
                         </ul>
                     </div>

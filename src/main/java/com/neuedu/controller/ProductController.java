@@ -256,7 +256,7 @@ public class ProductController {
                          @RequestParam(value = "currentPage", defaultValue = "1") int currentPage){
 
 
-        if (currentPage!=1){
+        /*if (currentPage!=1){
             if (categoryId!=null){
                 session.setAttribute("categoryId", categoryId);
             }
@@ -266,8 +266,9 @@ public class ProductController {
         }else {
             session.setAttribute("categoryId", categoryId);
             session.setAttribute("keyword", keyword);
-        }
-
+        }*/
+        session.setAttribute("categoryId", categoryId);
+        session.setAttribute("keyword", keyword);
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categorylist", categoryList);
 

@@ -194,6 +194,9 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public Page<Product> findByPage(int currentPage, Integer categoryId, String keyword) {
+        if (categoryId==null&&(keyword==null||keyword.equals(""))){
+            throw new MyException("参数错误！","/user/product/findproduct");
+        }
         HashMap<String,Object> map = new HashMap<String,Object>();
         Page<Product> pageBean = new Page<Product>();
         //封装当前页数

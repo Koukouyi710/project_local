@@ -145,11 +145,13 @@ public class OrderController {
 
     @RequestMapping(value = "search")
     public  String  search(@Param("orderNo") Long orderNo, HttpSession session){
-        Order order = orderMapper.findOrderListByUserIdAndOrderNO(null,orderNo);
-        if (order!=null) {
-            session.setAttribute("order",order);
+        if (orderNo!=null){
+            Order order = orderMapper.findOrderListByUserIdAndOrderNO(null,orderNo);
+            if (order!=null) {
+                session.setAttribute("order",order);
+            }
+            return "order/search";
         }
-        System.out.println(order.getPaymentType());
-        return "order/search";
+        throw new MyException("参数错误！","/user/order/findorder");
     }
 }
