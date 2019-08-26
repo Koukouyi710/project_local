@@ -112,6 +112,21 @@ public class OrderController {
         //return "redirect:/user/order/findorder";
     }
 
+    /**
+     *修改地址
+     */
+    @RequestMapping("shippingupdate")
+    public  String  updateShipping(Shipping shipping,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("GBK");
+        int result = shippingMapper.updateByPrimaryKey(shipping);
+        if (result>0){
+            return "order/detail";
+        }
+        return "order/detail";
+    }
+
     @RequestMapping(value = "detail/{id}")
     public  String  totest(@PathVariable("id") Integer id,HttpSession session){
         Order order = orderMapper.selectByPrimaryKey(id);

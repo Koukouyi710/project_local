@@ -39,7 +39,6 @@
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <a href="" class="btn btn-info">修改地址</a>
                             <a href="/user/order/findorder"><button type="submit" class="btn btn-default" style="float: right">返回</button></a>
                         </div>
                     </div>
